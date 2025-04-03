@@ -11,6 +11,8 @@
   "dependencies": {
     "@expo-google-fonts/kaushan-script": "^0.3.0",
     "@expo/metro-runtime": "~4.0.1",
+    "@react-navigation/bottom-tabs": "^7.3.8",
+    "@react-navigation/native": "^7.1.4",
     "expo": "~52.0.42",
     "expo-app-loading": "^2.1.1",
     "expo-font": "~13.0.4",
