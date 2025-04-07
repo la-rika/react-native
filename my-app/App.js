@@ -27,35 +27,43 @@ export const newPostsImgs = [
 export const postsImgs = [
   {
     profile: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    following: false
   },
   {
     profile: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    following: false
   },
   {
     profile: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    following: false
   },
   {
     profile: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    following: false
   },
   {
     profile: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    following: false
   },
   {
     profile: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    following: false
   },
   {
     profile: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    following: false
   },
   {
     profile: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    post: "https://images.pexels.com/photos/1472999/pexels-photo-1472999.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    following: false
   },
 ]
 
@@ -110,6 +118,19 @@ export const Styles = EStyleSheet.create({
       alignItems: "center",
       paddingTop: "0.75rem",
       paddingRight: "1rem"
+    },
+    button: {
+      borderRadius: 20,
+      backgroundColor: "#2196F3",
+      paddingVertical: 5,
+      paddingInline: 10,
+      followed: {
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: "#2196F3",
+        paddingVertical: 5,
+        paddingInline: 10,
+      }
     }
   }
 })
@@ -119,7 +140,6 @@ export const Styles = EStyleSheet.create({
 export default function App() {
 
   let [fontsLoaded] = useFonts({ KaushanScript_400Regular });
-  const [isFollowed, setIsFollowed] = useState(false);
   const Tab = createBottomTabNavigator();
 
   if (fontsLoaded) {
@@ -166,8 +186,6 @@ const HomeScreen = () => (
           post={el.post}
           profile={el.profile}
           description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at odio. "}
-        // isFollowed={isFollowed}
-        // handleClick={()=>setIsFollowed(!isFollowed)}
         />
       ))}
     </View>
@@ -175,23 +193,28 @@ const HomeScreen = () => (
   </ScrollView>
 )
 
-const DiscoverScreen = () => (
-  <ScrollView stickyHeaderIndices={[0]} style={Styles.pageLayout}>
-    <Header imageUrl={"https://images.pexels.com/photos/2071882/pexels-photo-2071882.jpeg?auto=compress&cs=tinysrgb&w=1200"} />
-    <View>
-      {postsImgs.map(el => (
-        <SinglePost
-          style={{ marginTop: 0, marginBottom: 32 }}
-          post={el.post}
-          profile={el.profile}
-          description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at odio. "}
-        // isFollowed={isFollowed}
-        // handleClick={()=>setIsFollowed(!isFollowed)}
-        />
-      ))}
-    </View>
-  </ScrollView>
-)
+const DiscoverScreen = () => {
+  const [isFollowed, setIsFollowed] = useState({value: false, index:0})
+  return (
+    <ScrollView stickyHeaderIndices={[0]} style={Styles.pageLayout}>
+      <Header imageUrl={"https://images.pexels.com/photos/2071882/pexels-photo-2071882.jpeg?auto=compress&cs=tinysrgb&w=1200"} />
+      <View>
+        {postsImgs.map((el,index) => (
+            <SinglePost
+              style={{ marginTop: 0, marginBottom: 32 }}
+              post={el.post}
+              profile={el.profile}
+              description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at odio. "}
+              discover
+              isFollowed={index === isFollowed.index && isFollowed.value }
+              handleClick={() => setIsFollowed({value: !isFollowed.value, index:index})}
+            />
+          )
+        )}
+      </View>
+    </ScrollView>
+  )
+}
 
 const ProfileScreen = () => (
   <ScrollView style={Styles.pageLayout} stickyHeaderIndices={[0]}>
