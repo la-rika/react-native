@@ -10,6 +10,7 @@ import { NewPosts } from './components/NewPosts';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SinglePost } from './components/SinglePost';
+import { ProfilePage } from './components/ProfilePage';
 
 EStyleSheet.build();
 
@@ -132,6 +133,39 @@ export const Styles = EStyleSheet.create({
         paddingInline: 10,
       }
     }
+  },
+  profile: {
+    image: {
+      width: "12rem",
+      height: "12rem",
+      borderRadius: "90px",
+      marginBottom: "0.5rem"
+    },
+    layout: {
+      alignItems: "center",
+    },
+    follows: {
+      alignItems: "center",
+      layout: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginVertical: "1.6rem",
+        paddingInline:"7rem"
+      },
+      title: {
+        fontSize: 24,
+        fontWeight: 700
+      },
+    },
+    userInfo: {
+      content: {
+        flexDirection: "row",
+        flex:1
+      },
+      title: {
+        fontWeight: 700,
+      }
+    }
   }
 })
 
@@ -179,39 +213,34 @@ export default function App() {
 const HomeScreen = () => (
   <ScrollView stickyHeaderIndices={[0]} style={Styles.pageLayout}>
     <Header imageUrl={"https://images.pexels.com/photos/2071882/pexels-photo-2071882.jpeg?auto=compress&cs=tinysrgb&w=1200"} />
-    <View >
-      <NewPosts />
-      {postsImgs.map(el => (
-        <SinglePost
-          post={el.post}
-          profile={el.profile}
-          description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at odio. "}
-        />
-      ))}
-    </View>
-
+    <NewPosts />
+    {postsImgs.map(el => (
+      <SinglePost
+        post={el.post}
+        profile={el.profile}
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at odio. "}
+      />
+    ))}
   </ScrollView>
 )
 
 const DiscoverScreen = () => {
-  const [isFollowed, setIsFollowed] = useState({value: false, index:0})
+  const [isFollowed, setIsFollowed] = useState({ value: false, index: 0 })
   return (
     <ScrollView stickyHeaderIndices={[0]} style={Styles.pageLayout}>
       <Header imageUrl={"https://images.pexels.com/photos/2071882/pexels-photo-2071882.jpeg?auto=compress&cs=tinysrgb&w=1200"} />
-      <View>
-        {postsImgs.map((el,index) => (
-            <SinglePost
-              style={{ marginTop: 0, marginBottom: 32 }}
-              post={el.post}
-              profile={el.profile}
-              description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at odio. "}
-              discover
-              isFollowed={index === isFollowed.index && isFollowed.value }
-              handleClick={() => setIsFollowed({value: !isFollowed.value, index:index})}
-            />
-          )
-        )}
-      </View>
+      {postsImgs.map((el, index) => (
+        <SinglePost
+          style={{ marginTop: 0, marginBottom: 32 }}
+          post={el.post}
+          profile={el.profile}
+          description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at odio. "}
+          discover
+          isFollowed={index === isFollowed.index && isFollowed.value}
+          handleClick={() => setIsFollowed({ value: !isFollowed.value, index: index })}
+        />
+      )
+      )}
     </ScrollView>
   )
 }
@@ -219,8 +248,6 @@ const DiscoverScreen = () => {
 const ProfileScreen = () => (
   <ScrollView style={Styles.pageLayout} stickyHeaderIndices={[0]}>
     <Header imageUrl={"https://images.pexels.com/photos/2071882/pexels-photo-2071882.jpeg?auto=compress&cs=tinysrgb&w=1200"} />
-    <View >
-
-    </View>
+    <ProfilePage imageUrl={"https://images.pexels.com/photos/2071882/pexels-photo-2071882.jpeg?auto=compress&cs=tinysrgb&w=1200"} />
   </ScrollView>
 )
