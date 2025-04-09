@@ -149,8 +149,8 @@ export const Styles = EStyleSheet.create({
       layout: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginVertical: "1.6rem",
-        paddingInline:"7rem"
+        marginTop: "1.5rem",
+        paddingInline:"4rem"
       },
       title: {
         fontSize: 24,
